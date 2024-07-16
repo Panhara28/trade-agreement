@@ -32,7 +32,20 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "seller",
+						"name": "buyerAddress",
+						"type": "address"
+					}
+				],
+				"name": "BuyerAccepted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sellerAddress",
 						"type": "address"
 					}
 				],
@@ -45,17 +58,48 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "seller",
+						"name": "sellerAddress",
 						"type": "address"
 					},
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "buyer",
+						"name": "buyerAddress",
 						"type": "address"
 					}
 				],
 				"name": "TradeCompeleted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sellerAddress",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "buyerAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "item",
+						"type": "string"
+					}
+				],
+				"name": "TradeCreated",
 				"type": "event"
 			},
 			{
@@ -212,11 +256,11 @@
 	},
 	"sources": {
 		"contracts/1.TradeAgreement.sol": {
-			"keccak256": "0xce8fd16037801661d7f83ab8d2a562a7f8ddeef06f3e51c5e25edb419e077443",
+			"keccak256": "0x02f933afcf5cf4bbd339a48fab792e7be514081945831253907b9d1b0c71ee3f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d469121059d5090123d0841630ce656ea34e5fbc51e88b73d937f50366e9cf5e",
-				"dweb:/ipfs/QmUXcy3SNGKmwmGxyM6tXNrfncmcfJnVoALSiJiyxGckDy"
+				"bzz-raw://9a45db267a14402517c96864875c5adae6226207b6df6be114163ea473c2a5a8",
+				"dweb:/ipfs/QmNNe3RroauAnELH4ozPgpnvoa37U3n7w82UZZdhUFsrNW"
 			]
 		}
 	},

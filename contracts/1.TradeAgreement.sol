@@ -10,8 +10,11 @@ contract TradeAgreement {
     bool public sellerAccepted;
     bool public tradeCompeleted;
     bool public depositMade;
-    event SellerAccepted(address indexed seller);
-    event TradeCompeleted(address indexed seller, address indexed buyer);
+
+    event TradeCreated(address indexed sellerAddress, address indexed buyerAddress, uint price, string item);
+    event BuyerAccepted(address indexed buyerAddress);
+    event SellerAccepted(address indexed sellerAddress);
+    event TradeCompeleted(address indexed sellerAddress, address indexed buyerAddress);
 
     constructor(
         address _buyerAddress,
