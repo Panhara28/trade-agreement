@@ -1,79 +1,80 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-contract TradeAgreement{
-    address public seller;
-    address public buyer;
-    uint256 public amount;
+contract TradeAgreement {
+    address public sellerAddress;
+    address public buyerAddress;
     string public item;
+    uint256 public price;
     bool public buyerAccepted;
     bool public sellerAccepted;
     bool public tradeCompeleted;
-    address public owner;
-
-    event TradeCreated(address indexed seller, address indexed buyer, uint amount, string item);
-    event BuyerAccepted(address indexed buyer);
+    bool public depositMade;
     event SellerAccepted(address indexed seller);
     event TradeCompeleted(address indexed seller, address indexed buyer);
 
-    constructor(){
-        owner = msg.sender;
-        seller = msg.sender;
-        buyerAccepted = false;
-        sellerAccepted = false;
-        tradeCompeleted = false;
-        emit TradeCreated(seller, buyer, amount, item);
-    }
-
-    modifier onlyBuyer(){
-        require(msg.sender == buyer, "Only buyer can call this function");
-        _;
-    }
-
-    modifier onlySeller(){
-        require(msg.sender == seller, "Only seller can call this function");
-        _;
-    }
-
-    function iWantToBuy(string memory _item, uint256 _amount) public{
-        require(msg.sender != owner, "Owner can't buy");
-        require(buyer == address(0), "Trade Already Compeleted");
-        buyer = msg.sender;
+    constructor(
+        address _buyerAddress,
+        string memory _item,
+        uint256 _price
+    ) {
+        sellerAddress = msg.sender;
+        buyerAddress = _buyerAddress;
         item = _item;
-        amount = _amount;
+        price = _price;
     }
 
-    function acceptTradeAsSeller() public onlySeller{
+    modifier onlyBuyer() {
+        require(
+            msg.sender == buyerAddress,
+            "Only buyer can call this function"
+        );
+        _;
+    }
+
+    modifier onlySeller() {
+        require(
+            msg.sender == sellerAddress,
+            "Only seller can call this function"
+        );
+        _;
+    }
+
+    function deposit() public payable onlyBuyer {
+        require(
+            buyerAccepted == true,
+            "Buyer hasn't already accepted the trade"
+        );
+        require(!depositMade, "Deposit already made");
+        require(msg.value == price, "Incorrect Amount");
+        depositMade = true;
+    }
+
+    function acceptTradeAsSeller() public onlySeller {
+        require(
+            sellerAccepted == false,
+            "Seller has already accepted the trade"
+        );
+        require(depositMade, "Deposit not made");
         sellerAccepted = true;
-        emit SellerAccepted(seller);
+        emit SellerAccepted(sellerAddress);
+        completeTrade();
+    }
+
+    function acceptTradeAsBuyer() public onlyBuyer {
+        require(buyerAccepted == false, "Buyer has already accepted the trade");
+        buyerAccepted = true;
+        emit SellerAccepted(buyerAddress);
         completeTrade();
     }
 
     function completeTrade() internal {
-        if(buyerAccepted && sellerAccepted){
+        if (buyerAccepted && sellerAccepted) {
             tradeCompeleted = true;
-            emit TradeCompeleted(seller, buyer);
-            payable(seller).transfer(amount);
-        }else{
+            emit TradeCompeleted(sellerAddress, buyerAddress);
+            payable(sellerAddress).transfer(price);
+        } else {
             require(tradeCompeleted == false, "Trade Already Compeleted");
         }
     }
-
-    function deposit() public payable onlyBuyer{
-        require(msg.value == amount, "Incorrect Amount");
-        buyerAccepted = true;
-    }
-
-    function getTradeStatus() public view returns(bool){
-        return tradeCompeleted;
-    }
-
-    function getAddressOwner(address _userAddress) public view returns(bool){
-        if(owner == _userAddress){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
 }

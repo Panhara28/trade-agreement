@@ -6,22 +6,25 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
-				"anonymous": false,
 				"inputs": [
 					{
-						"indexed": true,
 						"internalType": "address",
-						"name": "buyer",
+						"name": "_buyerAddress",
 						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_item",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_price",
+						"type": "uint256"
 					}
 				],
-				"name": "BuyerAccepted",
-				"type": "event"
+				"stateMutability": "nonpayable",
+				"type": "constructor"
 			},
 			{
 				"anonymous": false,
@@ -56,67 +59,17 @@
 				"type": "event"
 			},
 			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "seller",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "buyer",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "item",
-						"type": "string"
-					}
-				],
-				"name": "TradeCreated",
-				"type": "event"
-			},
-			{
 				"inputs": [],
-				"name": "acceptTradeAsSeller",
+				"name": "acceptTradeAsBuyer",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "amount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "buyer",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
+				"name": "acceptTradeAsSeller",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -134,25 +87,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "deposit",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_userAddress",
-						"type": "address"
-					}
-				],
-				"name": "getAddressOwner",
+				"name": "buyerAddress",
 				"outputs": [
 					{
-						"internalType": "bool",
+						"internalType": "address",
 						"name": "",
-						"type": "bool"
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -160,7 +100,14 @@
 			},
 			{
 				"inputs": [],
-				"name": "getTradeStatus",
+				"name": "deposit",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "depositMade",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -169,24 +116,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "_item",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_amount",
-						"type": "uint256"
-					}
-				],
-				"name": "iWantToBuy",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -204,25 +133,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "owner",
+				"name": "price",
 				"outputs": [
 					{
-						"internalType": "address",
+						"internalType": "uint256",
 						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "seller",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -236,6 +152,19 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "sellerAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -276,18 +205,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"contracts/1.TradeAgreement.sol": {
-			"keccak256": "0x1524548180e8ffb1d40274c75fef4f85655bd845c95bfe7fdf7d860c21391a33",
+			"keccak256": "0xce8fd16037801661d7f83ab8d2a562a7f8ddeef06f3e51c5e25edb419e077443",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://391e756549c62c7b0bce1e76e5962f76f032d097993321807736fe9cfa1e9510",
-				"dweb:/ipfs/Qmf6A949kXJdWehm7Yqxvbdec4MvcoxMxWekajGg3KyknK"
+				"bzz-raw://d469121059d5090123d0841630ce656ea34e5fbc51e88b73d937f50366e9cf5e",
+				"dweb:/ipfs/QmUXcy3SNGKmwmGxyM6tXNrfncmcfJnVoALSiJiyxGckDy"
 			]
 		}
 	},
