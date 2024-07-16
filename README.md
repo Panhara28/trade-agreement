@@ -110,18 +110,18 @@ function completeTrade() internal {
 }
 ```
 ### Usage Example
-##### Deploy the Contract
+##### 1. Deploy the Contract
 - The seller deploys the contract with the buyer's address, item description, and price.
 
-##### Buyer Accepts the Trade
+##### 2. Buyer Accepts the Trade
 - The buyer calls acceptTradeAsBuyer() to accept the trade.
   
-##### Buyer Deposits the Price
+##### 3. Buyer Deposits the Price
 - The buyer calls deposit() and sends the price amount to the contract.
   
-##### Seller Accepts the Trade
+##### 4. Seller Accepts the Trade
 - The seller calls acceptTradeAsSeller() to accept the trade.
   
-##### Trade Completion
+##### 5. Trade Completion
 - Once both parties have accepted the trade and the deposit is made, the contract automatically transfers the price to the seller and emits the TradeCompleted event.
 This smart contract ensures that both parties agree to the terms and that the payment is securely handled before the trade is considered complete.
