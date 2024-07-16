@@ -9,21 +9,19 @@ contract TradeAgreement{
     bool public buyerAccepted;
     bool public sellerAccepted;
     bool public tradeCompeleted;
+    address public owner;
 
     event TradeCreated(address indexed seller, address indexed buyer, uint amount, string item);
     event BuyerAccepted(address indexed buyer);
     event SellerAccepted(address indexed seller);
     event TradeCompeleted(address indexed seller, address indexed buyer);
 
-    constructor(address _buyer, uint256 _amount, string memory _item){
+    constructor(){
+        owner = msg.sender;
         seller = msg.sender;
-        buyer = _buyer;
-        amount = _amount * 10**18;
-        item = _item;
         buyerAccepted = false;
         sellerAccepted = false;
         tradeCompeleted = false;
-
         emit TradeCreated(seller, buyer, amount, item);
     }
 
@@ -37,10 +35,12 @@ contract TradeAgreement{
         _;
     }
 
-    function acceptTradeAsBuyer() public onlyBuyer{
-        buyerAccepted = true;
-        emit BuyerAccepted(buyer);
-        completeTrade();
+    function iWantToBuy(string memory _item, uint256 _amount) public{
+        require(msg.sender != owner, "Owner can't buy");
+        require(buyer == address(0), "Trade Already Compeleted");
+        buyer = msg.sender;
+        item = _item;
+        amount = _amount;
     }
 
     function acceptTradeAsSeller() public onlySeller{
@@ -61,10 +61,19 @@ contract TradeAgreement{
 
     function deposit() public payable onlyBuyer{
         require(msg.value == amount, "Incorrect Amount");
+        buyerAccepted = true;
     }
 
     function getTradeStatus() public view returns(bool){
         return tradeCompeleted;
+    }
+
+    function getAddressOwner(address _userAddress) public view returns(bool){
+        if(owner == _userAddress){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
